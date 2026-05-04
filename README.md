@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SheetCraft Bio Page (Next.js + Google Sheets API)
 
-## Getting Started
+A premium link-in-bio page for selling Google Sheet templates. All profile, social, and product data is loaded from Google Sheets via the Google Sheets API v4 and rendered with Next.js App Router server components.
 
-First, run the development server:
+## 1) Clone and install
+
+```bash
+git clone <your-repo-url>
+cd Bio
+npm install
+```
+
+## 2) Create a Google Cloud project + Service Account
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/).
+2. Create or select a project.
+3. Go to **APIs & Services > Library**, enable **Google Sheets API**.
+4. Go to **IAM & Admin > Service Accounts**.
+5. Create a new service account.
+6. Create and download a JSON key for that account.
+7. Save these values from the key:
+   - `client_email` -> `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+   - `private_key` -> `GOOGLE_PRIVATE_KEY`
+
+## 3) Share the Google Sheet
+
+Share your Google Sheet with the service account email (Viewer role is enough for this app).
+
+## 4) Setup environment variables
+
+1. Copy the example file:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Fill in values in `.env.local`:
+
+```env
+GOOGLE_SHEET_ID=your_google_sheet_id_here
+GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+```
+
+## 5) Prepare Google Sheet tabs and headers
+
+Create these exact tab names and column headers:
+
+- `profile`: `Key | Value`
+- `socials`: `platform | label | handle | url | icon_color | active`
+- `products`: `id | title | description | category | price | original_price | badge | image_url | cta_url | active | sort_order`
+
+`active` should be `TRUE` for rows you want to show.
+
+## 6) Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 7) Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push your code to GitHub/GitLab/Bitbucket.
+2. Import the repo into [Vercel](https://vercel.com/).
+3. In the Vercel project dashboard, add:
+   - `GOOGLE_SHEET_ID`
+   - `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+   - `GOOGLE_PRIVATE_KEY`
+4. Deploy.
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Data is cached with ISR (`revalidate: 3600`) for one hour.
+- If Google Sheets fetch fails, the app gracefully falls back to empty data.

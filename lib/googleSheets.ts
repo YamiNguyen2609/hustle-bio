@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import type { Product, Profile, Social } from "@/types";
+import type { Product, Profile, Social, TemplateImage } from "@/types";
 
 const REVALIDATE_SECONDS = 3600;
 const API_BASE = "https://sheets.googleapis.com/v4/spreadsheets";
@@ -15,7 +15,7 @@ const DEFAULT_PROFILE: Profile = {
   website: "",
 };
 
-type SectionName = "configuration" | "payment" | "social" | "project";
+type SectionName = "configuration" | "payment" | "social" | "project" | "template";
 
 function toNumber(value: string | undefined): number {
   if (!value) {
@@ -119,6 +119,9 @@ function normalizeSectionName(value: string): SectionName | null {
   if (normalized === "project") {
     return "project";
   }
+  if (normalized === "template") {
+    return "template";
+  }
   return null;
 }
 
@@ -128,6 +131,7 @@ function parseStructuredSections(rows: string[][]): Record<SectionName, Record<s
     payment: [],
     social: [],
     project: [],
+    template: [],
   };
 
   let currentSection: SectionName | null = null;
@@ -184,6 +188,7 @@ async function getStructuredSections(): Promise<Record<SectionName, Record<strin
       payment: [],
       social: [],
       project: [],
+      template: [],
     };
   }
   return parseStructuredSections(rows);
@@ -246,7 +251,7 @@ export async function getSocials(): Promise<Social[]> {
   const sections = await getStructuredSections();
   if (sections.social.length) {
     return sections.social
-      .filter((item) => !!item.url)
+      .filter((item) => !!item.url && item["active bio"]?.toUpperCase() === "TRUE")
       .map((item) => ({
         platform: item.name ?? "",
         label: item["display name"] ?? item.name ?? "",
@@ -325,4 +330,45 @@ export async function getProducts(): Promise<Product[]> {
       sort_order: toNumber(item.sort_order),
     }))
     .sort((a, b) => a.sort_order - b.sort_order);
+}
+
+export async function getTemplateImages(): Promise<TemplateImage[]> {
+  const sections = await getStructuredSections();
+  if (sections.template.length) {
+    return sections.template
+      .filter((item) => !!item.url)
+      .map((item, index) => ({
+        id: item.id ?? `template-${index + 1}`,
+        project_id: item.projectid ?? item["project id"] ?? "",
+        url: item.url ?? "",
+      }));
+  }
+
+  const rows = await fetchSheetValues("A:C");
+  if (rows.length < 2) {
+    return [];
+  }
+
+  const headers = rows[0].map((header) => header.trim());
+  return rows
+    .slice(1)
+    .map((row) => mapRow(headers, row))
+    .filter((item) => !!item.url)
+    .map((item, index) => ({
+      id: item.id ?? `template-${index + 1}`,
+      project_id: item.projectid ?? item["project id"] ?? "",
+      url: item.url ?? "",
+    }));
+}
+
+export async function getPaymentGuides(): Promise<string[]> {
+  const sections = await getStructuredSections();
+  if (sections.payment.length) {
+    return sections.payment
+      .map((item) => item.value ?? item.name ?? item.description ?? "")
+      .map((text) => text.trim())
+      .filter(Boolean);
+  }
+
+  return [];
 }

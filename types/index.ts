@@ -31,3 +31,17 @@ export type Product = {
   active: string;
   sort_order: number;
 };
+
+export type TemplateImage = {
+  id: string;
+  project_id: string;
+  url: string;
+};
+
+export type SiteData = {
+  profile: Profile;
+  socials: Social[];
+  products: Product[];
+  templateImages: TemplateImage[];
+  paymentGuides: string[];
+};

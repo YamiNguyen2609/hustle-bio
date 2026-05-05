@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Syne } from "next/font/google";
+import { DataProvider } from "@/context/DataContext";
 import "./globals.css";
 
 const syne = Syne({
@@ -25,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className={`${syne.variable} ${dmSans.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full bg-[#f9f5e8] font-[var(--font-dm-sans)] text-[#0d0d0d]">
+        <DataProvider>{children}</DataProvider>
+      </body>
     </html>
   );
 }

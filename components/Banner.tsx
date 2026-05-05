@@ -12,19 +12,14 @@ export default function Banner({ profile }: BannerProps) {
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Crect width='112' height='112' fill='%231a1a2e'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-size='44' fill='%23f5c518' dy='.3em'%3EH2M%3C/text%3E%3C/svg%3E";
 
   return (
-    <section className="banner-wrap">
-      <div className="banner-grid-glow" />
-      <div className="banner-content section-shell">
+    <section className="relative overflow-hidden bg-[#1a1a2e] px-0 pb-[42px] pt-[34px] text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_25%,rgba(245,197,24,0.2),transparent_42%),radial-gradient(circle_at_82%_18%,rgba(245,197,24,0.16),transparent_36%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(245,197,24,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(245,197,24,0.1)_1px,transparent_1px)] bg-[size:26px_26px] opacity-25" />
+      <div className="relative z-[1] mx-auto w-full max-w-[760px] px-[18px] text-center">
         <div
-          className="fade-up"
+          className="mx-auto mb-5 w-full max-w-[860px] overflow-hidden rounded-2xl border border-[#f5c51840]"
           style={{
             animationDelay: "0.02s",
-            width: "100%",
-            maxWidth: "860px",
-            margin: "0 auto 20px",
-            borderRadius: "16px",
-            overflow: "hidden",
-            border: "1px solid rgba(245, 197, 24, 0.25)",
           }}
         >
           <Image
@@ -32,22 +27,29 @@ export default function Banner({ profile }: BannerProps) {
             alt="Banner"
             width={1600}
             height={500}
-            style={{ width: "100%", height: "220px", objectFit: "cover", display: "block" }}
+            className="block h-[220px] w-full object-cover"
             unoptimized
           />
         </div>
 
-        <div className="avatar-wrap fade-up" style={{ animationDelay: "0.08s" }}>
+        <div
+          className="mx-auto mb-3.5 h-[116px] w-[116px] overflow-hidden rounded-full border-2 border-[#f5c518] shadow-[0_0_0_6px_rgba(245,197,24,0.15)]"
+          style={{ animationDelay: "0.08s" }}
+        >
           <Image
             src={profile.avatar_url || fallbackAvatar}
             alt={profile.name || "Avatar"}
             width={112}
             height={112}
+            className="h-full w-full object-cover"
             unoptimized
           />
         </div>
 
-        <h1 className="banner-title fade-up" style={{ animationDelay: "0.14s", marginBottom: 0 }}>
+        <h1
+          className="mx-auto mb-0 max-w-[640px] font-[var(--font-syne)] text-[clamp(2rem,5vw,3rem)] leading-[1.1] tracking-[-0.02em]"
+          style={{ animationDelay: "0.14s" }}
+        >
           {profile.name || "Temply"}
         </h1>
       </div>

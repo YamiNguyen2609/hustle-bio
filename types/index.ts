@@ -32,9 +32,9 @@ export type Product = {
   sort_order: number;
 };
 
-export type TemplateImage = {
+export type ProductImage = {
   id: string;
-  project_id: string;
+  product_id: string;
   url: string;
 };
 
@@ -42,6 +42,6 @@ export type SiteData = {
   profile: Profile;
   socials: Social[];
   products: Product[];
-  templateImages: TemplateImage[];
+  product_images: ProductImage[];
   paymentGuides: string[];
 };

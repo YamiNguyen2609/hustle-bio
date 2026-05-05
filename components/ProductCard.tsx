@@ -1,20 +1,20 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Product } from "@/types";
 
 type ProductCardProps = {
   product: Product;
+  onViewDetail: (product: Product) => void;
 };
 
 function formatVnd(value: number): string {
-  return new Intl.NumberFormat("vi-VN", {
+  return value > 0 ? new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
     maximumFractionDigits: 0,
-  }).format(value);
+  }).format(value) : "Miễn phí";
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, onViewDetail }: ProductCardProps) {
   return (
     <article className="overflow-hidden relative flex w-full gap-3.5 rounded-[24px] border border-[#f5c51840] bg-[#fffdf5] transition-all duration-200 hover:translate-x-1 hover:border-[#f5c518] hover:border-l-[#f5c518] hover:shadow-[0_16px_28px_rgba(201,160,0,0.18)] max-[480px]:flex-col"
       style={{WebkitMaskImage: "-webkit-radial-gradient(white, black)"}}>
@@ -38,22 +38,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         <p className="my-1.5 mb-2.5 break-words text-sm text-[#6b6455] line-clamp-3">{product.description}</p>
         <div className="flex items-center justify-between gap-3 max-[480px]:flex-col max-[480px]:items-start">
           <div className="flex items-baseline gap-2">
-            <strong className="text-base text-[#0d0d0d]">{formatVnd(product.price)}</strong>
             {product.original_price > 0 ? (
-              <span className="text-[0.86rem] text-[#6b6455] line-through">
+              <span className="text-[0.86rem] text-[#6b6455] line-through ">
                 {formatVnd(product.original_price)}
               </span>
             ) : null}
+            <strong className="text-base text-[#6aa84f]">{formatVnd(product.price)}</strong>
           </div>
           <div className="flex items-center justify-center">
 
           </div>
-          <Link
-            href={`/template/${product.id}`}
+          <button
+            type="button"
+            onClick={() => onViewDetail(product)}
             className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full border border-transparent bg-[#f5c518] px-3.5 py-2.5 text-[0.9rem] font-bold text-[#0d0d0d] transition-all duration-200 hover:bg-[#ffd84d] hover:shadow-[0_8px_24px_rgba(245,197,24,0.35)] max-[480px]:w-full"
           >
             Xem chi tiết
-          </Link>
+          </button>
         </div>
       </div>
     </article>

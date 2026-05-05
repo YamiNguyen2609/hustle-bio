@@ -21,7 +21,7 @@ const defaultValue: DataContextValue = {
   },
   socials: [],
   products: [],
-  templateImages: [],
+  product_images: [],
   paymentGuides: [],
   loading: true,
   error: null,

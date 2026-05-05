@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className={`${syne.variable} ${dmSans.variable} h-full antialiased`}>
-      <body className="min-h-full bg-[#f9f5e8] font-[var(--font-dm-sans)] text-[#0d0d0d]">
+      <body className="min-h-full bg-[#f9f5e8] font-[var(--font-dm-sans)] text-[#0d0d0d] flex align-center justify-center">
         <DataProvider>{children}</DataProvider>
       </body>
     </html>

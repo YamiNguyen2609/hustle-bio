@@ -22,11 +22,11 @@ function resolveIconBackground(color: string): string {
 
 export default function SocialLinks({ socials }: SocialLinksProps) {
   return (
-    <section className="mx-auto w-full max-w-[680px] px-[10px] pb-[14px] pt-[30px]">
+    <section className="mx-auto w-full max-w-[860px] px-[10px] pb-[14px]">
       <p className="mb-3.5 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-[#6b6455]">
-        Ket noi voi minh
+        Kết nối với mình
       </p>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-2 max-[480px]:grid-cols-3">
+      <div className="grid grid-cols-3 gap-2">
         {socials.map((social) => {
           const platformColor = PLATFORM_COLORS[social.platform.toLowerCase()] ?? social.icon_color ?? "#000000";
           return (

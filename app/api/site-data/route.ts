@@ -4,16 +4,16 @@ import {
   getProducts,
   getProfile,
   getSocials,
-  getTemplateImages,
+  getProductImages,
 } from "@/lib/googleSheets";
 import type { SiteData } from "@/types";
 
 export async function GET() {
-  const [profile, socials, products, templateImages, paymentGuides] = await Promise.all([
+  const [profile, socials, products, product_images, paymentGuides] = await Promise.all([
     getProfile(),
     getSocials(),
     getProducts(),
-    getTemplateImages(),
+    getProductImages(),
     getPaymentGuides(),
   ]);
 
@@ -21,7 +21,7 @@ export async function GET() {
     profile,
     socials,
     products,
-    templateImages,
+    product_images,
     paymentGuides,
   };
 

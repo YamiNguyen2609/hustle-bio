@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import type { Product, Profile, Social, TemplateImage } from "@/types";
+import type { Product, Profile, Social, ProductImage } from "@/types";
 
 const REVALIDATE_SECONDS = 3600;
 const API_BASE = "https://sheets.googleapis.com/v4/spreadsheets";
@@ -15,7 +15,7 @@ const DEFAULT_PROFILE: Profile = {
   website: "",
 };
 
-type SectionName = "configuration" | "payment" | "social" | "project" | "template";
+type SectionName = "configuration" | "payment" | "social" | "product" | "product_image";
 
 function toNumber(value: string | undefined): number {
   if (!value) {
@@ -116,11 +116,11 @@ function normalizeSectionName(value: string): SectionName | null {
   if (normalized === "social") {
     return "social";
   }
-  if (normalized === "project") {
-    return "project";
+  if (normalized === "product") {
+    return "product";
   }
-  if (normalized === "template") {
-    return "template";
+  if (normalized === "product image") {
+    return "product_image";
   }
   return null;
 }
@@ -130,8 +130,8 @@ function parseStructuredSections(rows: string[][]): Record<SectionName, Record<s
     configuration: [],
     payment: [],
     social: [],
-    project: [],
-    template: [],
+    product: [],
+    product_image: [],
   };
 
   let currentSection: SectionName | null = null;
@@ -187,8 +187,8 @@ async function getStructuredSections(): Promise<Record<SectionName, Record<strin
       configuration: [],
       payment: [],
       social: [],
-      project: [],
-      template: [],
+      product: [],
+      product_image: [],
     };
   }
   return parseStructuredSections(rows);
@@ -283,8 +283,8 @@ export async function getSocials(): Promise<Social[]> {
 
 export async function getProducts(): Promise<Product[]> {
   const sections = await getStructuredSections();
-  if (sections.project.length) {
-    return sections.project.map((item, index) => {
+  if (sections.product.length) {
+    return sections.product.map((item, index) => {
       const oldPrice = toNumber(item["old pricing"]);
       const newPrice = toNumber(item["new pricing"]);
       const level = item.level ?? "";
@@ -332,14 +332,14 @@ export async function getProducts(): Promise<Product[]> {
     .sort((a, b) => a.sort_order - b.sort_order);
 }
 
-export async function getTemplateImages(): Promise<TemplateImage[]> {
+export async function getProductImages(): Promise<ProductImage[]> {
   const sections = await getStructuredSections();
-  if (sections.template.length) {
-    return sections.template
+  if (sections.product_image.length) {
+    return sections.product_image
       .filter((item) => !!item.url)
       .map((item, index) => ({
-        id: item.id ?? `template-${index + 1}`,
-        project_id: item.projectid ?? item["project id"] ?? "",
+        id: item.id ?? `product-image-${index + 1}`,
+        product_id: item.productid ?? item["product id"] ?? "",
         url: item.url ?? "",
       }));
   }
@@ -355,8 +355,8 @@ export async function getTemplateImages(): Promise<TemplateImage[]> {
     .map((row) => mapRow(headers, row))
     .filter((item) => !!item.url)
     .map((item, index) => ({
-      id: item.id ?? `template-${index + 1}`,
-      project_id: item.projectid ?? item["project id"] ?? "",
+      id: item.id ?? `Product-${index + 1}`,
+      product_id: item.productid ?? item["product id"] ?? "",
       url: item.url ?? "",
     }));
 }

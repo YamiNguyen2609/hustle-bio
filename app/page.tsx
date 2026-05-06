@@ -13,7 +13,12 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   if (loading) {
-    return <main className="p-6 text-center text-lg font-semibold">Loading</main>;
+    return <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-12 h-12 border-4 border-gray-200 border-t-[#0097b2] rounded-full animate-spin"></div>
+        <p className="text-sm text-gray-600 font-semibold">Đang tải...</p>
+      </div>
+    </div>;
   }
 
   if (error) {
@@ -29,7 +34,7 @@ export default function Home() {
       </div>
       <ProductList products={products} onViewDetail={setSelectedProduct} />
       {selectedProduct ? (
-        <ProductDetail 
+        <ProductDetail
           product={selectedProduct}
           productImages={product_images}
           socials={socials}

@@ -13,7 +13,7 @@ export default function SocialLinks({ socials, className }: SocialLinksProps) {
       <p className="mb-3.5 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-[#6b6455]">
         Kết nối với mình
       </p>
-      <div className={`grid grid-cols-${socials.length} ${className}`}>
+      <div style={{'--cols': socials.length}} className={`grid ${className} grid-cols-[repeat(var(--cols),minmax(0,1fr))]`}>
         {socials.map((social) => (
           <SocialCard key={`${social.platform}-${social.url}`} social={social} />
         ))}

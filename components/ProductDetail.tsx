@@ -75,18 +75,18 @@ export default function ProductDetail({ product, productImages, socials, onClose
   return (
     <div className="fixed overflow-hidden inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-3" onClick={onClose}>
       <div
-        className="h-[100dvh] w-full max-w-[860px] overflow-hidden sm:h-full sm:rounded-2xl bg-[#f9f5e8]"
+        className="h-full w-full max-w-[860px] overflow-hidden sm:rounded-2xl bg-[#e8f6f9]"
         onClick={(event) => event.stopPropagation()}
       >
         <main className="mx-auto flex h-full w-full max-w-[860px] flex-col">
-          <section className="mb-0 flex h-14 shrink-0 w-full items-center justify-between border-b-[5px] border-b-[#f5c518] bg-white px-4">
-            <p className="text-lg font-semibold text-[#6b6455]">{product.title}</p>
-            <button type="button" onClick={onClose} className="rounded-full py-1 text-sm font-semibold text-xl hover:bg-[#fff9de]">
+          <section className="mb-0 flex h-14 shrink-0 w-full items-center justify-between border-b-[5px] border-b-[#0097b2] bg-white px-4">
+            <p className="text-lg font-semibold text-[#2e5f6b]">{product.title}</p>
+            <button type="button" onClick={onClose} className="rounded-full py-1 text-sm font-semibold text-xl hover:bg-[#e6f7fb]">
               ✕
             </button>
           </section>
           <section className="flex-1 overflow-y-auto overscroll-none pb-6">
-            <section className="w-full mb-0 bg-[#f5c51840]">
+            <section className="w-full mb-0 bg-[#0097b240]">
               {images.length ? (
                 <Image
                   src={images[0]}
@@ -115,11 +115,11 @@ export default function ProductDetail({ product, productImages, socials, onClose
               </div>
             ) : null} */}
             </section>
-            <section className="mx-3 my-4 text-white bg-[#f5c518] py-2 flex item-center justify-center rounded-full">
+            <section className="mx-3 my-4 text-white bg-[#0097b2] py-2 flex item-center justify-center rounded-full">
               <a className="text-center font-bold font-semibold text-xl" href={product.cta_url}>Bấm để xem template demo</a>
             </section>
             <div className="mx-auto mb-4 w-full max-w-[860px] px-[10px] mb-0">
-              <div className="h-px bg-[linear-gradient(90deg,transparent_0%,rgba(245,197,24,0.5)_25%,rgba(245,197,24,0.5)_75%,transparent_100%)]" />
+              <div className="h-px bg-[linear-gradient(90deg,transparent_0%,rgba(0,151,178,0.5)_25%,rgba(0,151,178,0.5)_75%,transparent_100%)]" />
             </div>
             <SocialLinks socials={socials} className="max-[480px]:grid-cols-1 gap-4" />
           </section>

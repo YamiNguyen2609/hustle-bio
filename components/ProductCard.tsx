@@ -16,11 +16,11 @@ function formatVnd(value: number): string {
 
 export default function ProductCard({ product, onViewDetail }: ProductCardProps) {
   return (
-    <article className="overflow-hidden relative flex w-full gap-3.5 rounded-[24px] border border-[#f5c51840] bg-[#fffdf5] transition-all duration-200 hover:translate-x-1 hover:border-[#f5c518] hover:border-l-[#f5c518] hover:shadow-[0_16px_28px_rgba(201,160,0,0.18)] max-[480px]:flex-col"
+    <article className="overflow-hidden relative flex w-full gap-3.5 rounded-[24px] border-[4px] border-[#f5c51840] bg-[#fffdf5] transition-all duration-200 hover:translate-x-1 hover:border-[#f5c518] hover:border-l-[#f5c518] hover:shadow-[0_16px_28px_rgba(201,160,0,0.18)] max-[480px]:flex-col"
       style={{WebkitMaskImage: "-webkit-radial-gradient(white, black)"}}>
       <div className="overflow-hidden relative aspect-[4/3] max-h-[300px] bg-[#f5c51840] w-[clamp(96px,32%,220px)] shrink-0 overflow-hidden max-[480px]:max-h-[240px] max-[480px]:w-full">
         {product.badge ? (
-          <span className="absolute right-1.5 top-1.5 z-[1] rounded-full bg-[#ffd84d] px-2 py-0.5 text-[0.65rem] font-bold text-[#0d0d0d]">
+          <span className="absolute right-3 top-3 z-[1] rounded-full bg-[#ffd84d] px-2 py-0.5 text-[0.65rem] font-bold text-[#0d0d0d]">
             {product.badge}
           </span>
         ) : null}

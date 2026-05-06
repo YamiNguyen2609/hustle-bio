@@ -43,12 +43,12 @@ export default function Banner({ profile }: BannerProps) {
           </div>
 
           <div className="min-w-0 text-left max-[480px]:text-center">
-            <h3
-              className="text-[#6b6455] mb-3 font-[var(--font-syne)] text-[clamp(1.8rem,4.2vw,2.7rem)] leading-[1.1] tracking-[-0.02em]"
+            <p
+              className="text-2xl text-[#6b6455] mb-3 font-[var(--font-syne)] leading-[1.1] tracking-[-0.02em] font-semibold"
               style={{ animationDelay: "0.14s" }}
             >
               {profile.name || "Temply"}
-            </h3>
+            </p>
             <p className="text-[#6b6455] text-sm sm:text-base text-justify max-[480px]:text-center">{profile.tagline || profile.headline || "Template creator"}</p>
           </div>
         </div>

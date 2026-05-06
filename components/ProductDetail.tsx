@@ -73,19 +73,19 @@ export default function ProductDetail({ product, productImages, socials, onClose
   }, [onClose, showSocialPopup]);
 
   return (
-    <div className="fixed overflow-hidden inset-0 z-50 flex items-center justify-center bg-black/50 p-3" onClick={onClose}>
+    <div className="fixed overflow-hidden inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-3" onClick={onClose}>
       <div
-        className="h-full w-full max-w-[860px] overflow-hidden rounded-2xl bg-[#f9f5e8]"
+        className="h-[100dvh] w-full max-w-[860px] overflow-hidden sm:h-full sm:rounded-2xl bg-[#f9f5e8]"
         onClick={(event) => event.stopPropagation()}
       >
         <main className="mx-auto flex h-full w-full max-w-[860px] flex-col">
-          <section className="mb-0 flex h-[6vh] shrink-0 w-full items-center justify-between border-b-[5px] border-b-[#f5c518] bg-white px-4">
+          <section className="mb-0 flex h-14 shrink-0 w-full items-center justify-between border-b-[5px] border-b-[#f5c518] bg-white px-4">
             <p className="text-lg font-semibold text-[#6b6455]">{product.title}</p>
             <button type="button" onClick={onClose} className="rounded-full py-1 text-sm font-semibold text-xl hover:bg-[#fff9de]">
             ✕
             </button>
           </section>
-          <section className="flex-1 overflow-y-auto pb-6">
+          <section className="flex-1 overflow-y-auto overscroll-none pb-6">
           <section className="relative aspect-[3/4] w-full h-full mb-0 bg-[#f5c51840]">
             <div>
               {images.length ? (

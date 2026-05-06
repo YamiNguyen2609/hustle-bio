@@ -15,7 +15,7 @@ export default function SocialCard({ social }: SocialCardProps) {
     website: "#00A1F5",
     youtube: "#FF0033",
   };
-  
+
   const platformColor = PLATFORM_COLORS[social.platform.toLowerCase()] ?? social.icon_color ?? "#000000";
 
   return (
@@ -28,7 +28,7 @@ export default function SocialCard({ social }: SocialCardProps) {
         background: platformColor,
       }}
     >
-      <span className="inline-flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-xl">
+      <span className="inline-flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-xl">
         <Image src={`/${social.platform}.svg`} alt={`${social.platform} icon`} width={22} height={22} />
       </span>
       <div className="min-w-0">
